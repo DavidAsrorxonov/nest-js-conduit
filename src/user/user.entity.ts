@@ -6,12 +6,15 @@ export class UserEntity {
   id: number;
 
   @Column()
+  username: string;
+
+  @Column()
   email: string;
 
-  @Column()
+  @Column({ default: '' })
   bio: string;
 
-  @Column()
+  @Column({ default: '' })
   image: string;
 
   @Column()
