@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
-  createUser() {
-    return 'User created';
+  createUser(createUserDto: any) {
+    return createUserDto;
   }
 }
