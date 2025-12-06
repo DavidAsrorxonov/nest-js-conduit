@@ -6,7 +6,7 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Get()
-  defFunc(): string {
+  defFunc() {
     return this.tagService.defFunc();
   }
 }
