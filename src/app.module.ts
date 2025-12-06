@@ -5,10 +5,12 @@ import { TagModule } from './tag/tag.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagEntity } from './tag/tag.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     TagModule,
+    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
