@@ -7,4 +7,7 @@ export class TagEntity {
 
   @Column()
   name: string;
+
+  @Column({ type: 'timestamp' })
+  createdAt: Date;
 }

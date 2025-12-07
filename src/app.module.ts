@@ -5,10 +5,12 @@ import { TagModule } from './tag/tag.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagEntity } from './tag/tag.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     TagModule,
+    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -23,7 +25,8 @@ import { TagEntity } from './tag/tag.entity';
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true,
+        migrationsTableName: 'migrations',
+        migrations: [__dirname + '/migrations/**/*.ts'],
       }),
     }),
     TypeOrmModule.forFeature([TagEntity]),
