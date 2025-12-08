@@ -5,6 +5,7 @@ import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
 import { IUserResponse } from './types/user.response.interface';
 import { sign } from 'jsonwebtoken';
+import { compare } from 'bcrypt';
 import { LoginUserDto } from './dto/loginUser.dto';
 
 @Injectable()
@@ -53,6 +54,15 @@ export class UserService {
         'Email or password is wrong',
         HttpStatus.UNAUTHORIZED,
       );
+
+    const matchPassword = await compare(loginUserDto.password, user.password);
+
+    if (!matchPassword)
+      throw new HttpException(
+        'Email or password is wrong',
+        HttpStatus.UNAUTHORIZED,
+      );
+
     return user;
   }
 
