@@ -19,11 +19,15 @@ export class UserService {
     return this.generateUserResponse(savedUser);
   }
 
+  generateToken(user: UserEntity): string {
+    return 'testToken';
+  }
+
   generateUserResponse(user: UserEntity): IUserResponse {
     return {
       user: {
         ...user,
-        token: '',
+        token: this.generateToken(user),
       },
     };
   }
