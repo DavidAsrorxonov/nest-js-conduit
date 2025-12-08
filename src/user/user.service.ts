@@ -5,6 +5,7 @@ import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
 import { IUserResponse } from './types/user.response.interface';
 import { sign } from 'jsonwebtoken';
+import { LoginUserDto } from './dto/loginUser.dto';
 
 @Injectable()
 export class UserService {
@@ -40,7 +41,7 @@ export class UserService {
     return this.generateUserResponse(savedUser);
   }
 
-  async loginUser(loginUserDto: any): Promise<UserEntity> {
+  async loginUser(loginUserDto: LoginUserDto): Promise<UserEntity> {
     return {} as UserEntity;
   }
 
