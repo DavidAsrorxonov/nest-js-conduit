@@ -42,7 +42,18 @@ export class UserService {
   }
 
   async loginUser(loginUserDto: LoginUserDto): Promise<UserEntity> {
-    return {} as UserEntity;
+    const user = await this.userRepository.findOne({
+      where: {
+        email: loginUserDto.email,
+      },
+    });
+
+    if (!user)
+      throw new HttpException(
+        'Email or password is wrong',
+        HttpStatus.UNAUTHORIZED,
+      );
+    return user;
   }
 
   generateToken(user: UserEntity): string {

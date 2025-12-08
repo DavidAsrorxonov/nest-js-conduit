@@ -25,6 +25,7 @@ export class UserController {
   async loginUser(
     @Body('user') loginUserDto: LoginUserDto,
   ): Promise<IUserResponse> {
-    return {} as IUserResponse;
+    const user = await this.userService.loginUser(loginUserDto);
+    return this.userService.generateUserResponse(user);
   }
 }
