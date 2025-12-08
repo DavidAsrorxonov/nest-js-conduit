@@ -5,6 +5,8 @@ import { UserEntity } from './user.entity';
 import { Repository } from 'typeorm';
 import { IUserResponse } from './types/user.response.interface';
 import { sign } from 'jsonwebtoken';
+import { compare } from 'bcrypt';
+import { LoginUserDto } from './dto/loginUser.dto';
 
 @Injectable()
 export class UserService {
@@ -38,6 +40,32 @@ export class UserService {
 
     const savedUser = await this.userRepository.save(newUser);
     return this.generateUserResponse(savedUser);
+  }
+
+  async loginUser(loginUserDto: LoginUserDto): Promise<UserEntity> {
+    const user = await this.userRepository.findOne({
+      where: {
+        email: loginUserDto.email,
+      },
+    });
+
+    if (!user)
+      throw new HttpException(
+        'Email or password is wrong',
+        HttpStatus.UNAUTHORIZED,
+      );
+
+    const matchPassword = await compare(loginUserDto.password, user.password);
+
+    if (!matchPassword)
+      throw new HttpException(
+        'Email or password is wrong',
+        HttpStatus.UNAUTHORIZED,
+      );
+
+    delete user.password;
+
+    return user;
   }
 
   generateToken(user: UserEntity): string {
