@@ -40,6 +40,10 @@ export class UserService {
     return this.generateUserResponse(savedUser);
   }
 
+  async loginUser(loginUserDto: any): Promise<UserEntity> {
+    return {} as UserEntity;
+  }
+
   generateToken(user: UserEntity): string {
     return sign(
       {
