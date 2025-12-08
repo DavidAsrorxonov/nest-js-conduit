@@ -63,6 +63,8 @@ export class UserService {
         HttpStatus.UNAUTHORIZED,
       );
 
+    delete user.password;
+
     return user;
   }
 
